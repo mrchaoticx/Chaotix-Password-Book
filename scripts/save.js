@@ -76,7 +76,6 @@ async function login() {
         localStorage.setItem("salt", JSON.stringify(Array.from(salt)));
         passwordBook = [];
     } else {
-        // Returning user
         salt = new Uint8Array(JSON.parse(localStorage.getItem("salt")));
         masterKey = await deriveKey(pw, salt);
 
@@ -100,14 +99,35 @@ async function saveEncrypted() {
     localStorage.setItem("encryptedPasswordBook", JSON.stringify(encrypted));
 }
 
+/* ----------------------
+   DISPLAY ENTRIES + DELETE BUTTONS
+---------------------- */
+
 function displayEntries() {
     const ul = document.getElementById("entryList");
     ul.innerHTML = "";
-    passwordBook.forEach(entry => {
+
+    passwordBook.forEach((entry, index) => {
         const li = document.createElement("li");
-        li.textContent = `${entry.site} | ${entry.username} | ${entry.password}`;
+
+        li.innerHTML = `
+            ${entry.site} | ${entry.username} | ${entry.password}
+            <button style="float:right; padding:5px;" onclick="deleteEntry(${index})">
+                ❌
+            </button>
+        `;
+
         ul.appendChild(li);
     });
+}
+
+/* ---- NEW: REMOVE ENTRY ----- */
+async function deleteEntry(index) {
+    if (!confirm("Delete this entry?")) return;
+
+    passwordBook.splice(index, 1);
+    await saveEncrypted();
+    displayEntries();
 }
 
 async function addEntry() {
