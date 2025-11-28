@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Chaotix Password Book</title>
+        <style>
+            body {
+                font-family: Arial;
+                padding: 20px;
+                max-width: 500px;
+                margin: auto;
+            }
+            input, button {
+                width: 100%;
+                padding: 10px;
+                margin: 5px 0;
+            }
+            li {
+                background: #f4f4f4;
+                padding: 8px;
+                margin: 5px 0;
+                border-radius: 5px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <h2>Chaotix Password Book</h2>
+
+        <div id="loginDiv">
+            <h3>Enter Master Password</h3>
+            <input type="password" id="masterPassword" placeholder="Master password">
+            <button onclick="login()">Unlock</button>
+        </div>
+
+        <div id="app" style="display:none;">
+            <h3>Add Entry</h3>
+            <input id="site" placeholder="Website/App">
+            <input id="username" placeholder="Username">
+            <input id="password" type="password" placeholder="Password">
+            <button onclick="addEntry()">Add</button>
+
+            <h3>Saved Entries</h3>
+            <ul id="entryList"></ul>
+
+            <button onclick="exportJSON()">Export JSON</button>
+            <button onclick="exportTXT()">Export TEXT</button>
+            <div id="scriptAccess">
+                This project is maintained by Chaotix.
+            </div>
+        </div>
+
+        <script src="https://mrchaoticx.github.io/Chaotix-Password-Book/scripts/save.js"></script>
+    </body>
+</html>
